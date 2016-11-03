@@ -15,7 +15,9 @@ public class Combat
         int dam = p1.getDamage();
         monster.applyWounds( dam   )
                 
-               //Endnu en ny testtest!
+               //Endnu en ny testtest
+                
+                //en comment!
                 
     }
 

@@ -17,6 +17,7 @@ public class Combat {
         monster.applyWounds( dam   )
                 
                //Endnu en ny test!
+                // Dette er en ny test!
     }
     
 }

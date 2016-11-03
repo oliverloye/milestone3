@@ -17,7 +17,7 @@ public class Combat {
         monster.applyWounds( dam   )
                 
                 // TEST GITBUH!!
-        
+                // NY TEST!
     }
     
 }

@@ -22,5 +22,5 @@ public class Combat
                 //Oliver laver en test!
                 
     }
-
+//noget på 25
 }

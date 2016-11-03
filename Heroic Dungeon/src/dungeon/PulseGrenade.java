@@ -9,16 +9,18 @@ package dungeon;
  *
  * @author Oliver
  */
-public class PulseGrenade extends Weapon {
-    
+public class PulseGrenade extends Weapon
+{
+
     private final String name = "Pulse Grenade";
     private final int damage;
     private final int overheat;
 
-    public PulseGrenade(int damage, int overheat) {
+    public PulseGrenade(int damage, int overheat)
+    {
         super(damage, overheat);
         this.damage = 100;
         this.overheat = 10;
     }
-    
+
 }

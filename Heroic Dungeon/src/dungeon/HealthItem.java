@@ -9,22 +9,24 @@ package dungeon;
  *
  * @author Oliver
  */
-public class HealthItem extends Item {
-    
+public class HealthItem extends Item
+{
+
     private int restoreHp;
 
-    public HealthItem(int restoreHp) {
+    public HealthItem(int restoreHp)
+    {
         this.restoreHp = restoreHp;
     }
 
-    public int getRestoreHp() {
+    public int getRestoreHp()
+    {
         return restoreHp;
     }
 
-    public void setRestoreHp(int restoreHp) {
+    public void setRestoreHp(int restoreHp)
+    {
         this.restoreHp = restoreHp;
     }
-    
-    
-    
+
 }

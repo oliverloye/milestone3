@@ -9,14 +9,16 @@ package dungeon;
  *
  * @author Oliver
  */
-public class HippenMid extends HealthItem {
-    
+public class HippenMid extends HealthItem
+{
+
     private final String name = "HippenMid";
     private final int restoreHp;
 
-    public HippenMid(int restoreHp) {
+    public HippenMid(int restoreHp)
+    {
         super(restoreHp);
         this.restoreHp = 20;
     }
-    
+
 }

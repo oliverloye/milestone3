@@ -1,12 +1,11 @@
-
 package dungeon;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+public class Dungeon
+{
 
-public class Dungeon {
-    
     /*
     //Weapons
     PulseGrenade pulseGrenade = new PulseGrenade(50, 100);
@@ -17,13 +16,12 @@ public class Dungeon {
     HippenMin smallHealingPot1 = new HippenMin(10);
     HippenMid mediumHealingPot1 = new HippenMid(20);
     HippenMax superHealingPot1 = new HippenMax(50);
-    */
-    
+     */
     private Player player1;
     private Room current;
-    
-    
-    public void welcome() {
+
+    public void welcome()
+    {
         System.out.println("\nMoriMoriTek.Inc is a hyper company of the year 22XX of the international space calendar, "
                 + "\nmaking their money off of the greatest war in the history of the Andromeda galaxy, selling weapons. "
                 + "\nSince then, they've branched out, started mining for Eridium on rogue asteroids throughout their galaxy. "
@@ -34,8 +32,9 @@ public class Dungeon {
                 + "\nsign outside richest single person in the known universe. The reason why the asteroid was abandoned will soon become "
                 + "\nvery clear to our young smuggler.");
     }
-    
-    public void gameLoop() {
+
+    public void gameLoop()
+    {
         //TEST----------------------------------------------
         sleepCount();
         System.out.println("\n----------LOADING-----------");
@@ -79,98 +78,99 @@ public class Dungeon {
         System.out.println("0");
         System.out.println("\nHere we go!");
         sleepCount();
-        
+
         //TEST----------------------------------------------
-        
         boolean play = true;
         String answer = "";
         System.out.println(current.getDescription());
-        
-        
+
         Scanner scan = new Scanner(System.in);
-        
-        while(play) {
-            
+
+        while (play)
+        {
+
             answer = scan.nextLine();
-                if(answer.equalsIgnoreCase("help")) {
-                    getHelp();
+            if (answer.equalsIgnoreCase("help"))
+            {
+                getHelp();
+            } else if (answer.equalsIgnoreCase("check cache"))
+            {
+                System.out.println("\nTotal of Eridium: " + player1.getCache());
+            } else if (answer.equalsIgnoreCase("loot"))
+            {
+                if (current.getNumberOfEridium() > 0)
+                {
+                    //current.setNumberOfEridium(current.getNumberOfEridium()); //slettes???
+                    System.out.println("You've just looted " + current.getNumberOfEridium() + " chunk(s) of Eridium!");
+
+                    ArrayList<Item> allItems = current.getAllItems();
+                    player1.addAllToBag(allItems); //Lægger alle items fra arraylisten over i spilleres bag
+
+                    player1.addToCache(current.getNumberOfEridium());
+                    current.setNumberOfEridium(0);
+
+                    //System.out.println("You now have: " + player1.getCache() + " chunks of Eridium.");
+                } else
+                {
+                    System.out.println("There is nothing to loot!");
                 }
-                else if(answer.equalsIgnoreCase("check cache")) {
-                    System.out.println("\nTotal of Eridium: " + player1.getCache());
-                }
-                else if(answer.equalsIgnoreCase("loot")) {
-                    if(current.getNumberOfEridium() > 0) {
-                        //current.setNumberOfEridium(current.getNumberOfEridium()); //slettes???
-                        System.out.println("You've just looted " + current.getNumberOfEridium() + " chunk(s) of Eridium!");
-                        
-                        
-                        ArrayList<Item> allItems = current.getAllItems();
-                        player1.addAllToBag(allItems); //Lægger alle items fra arraylisten over i spilleres bag
-                        
-                        
-                        
-                        player1.addToCache(current.getNumberOfEridium());
-                        current.setNumberOfEridium(0);
-                        
-                        //System.out.println("You now have: " + player1.getCache() + " chunks of Eridium.");
-                    } else System.out.println("There is nothing to loot!");
-                    if(current.getRoomNumber() == 20) {
-                        System.out.println("\nCongratulations! You reached the final room");
-                        System.out.println("\nYou've collected a total of " + player1.getCache() + " Eridium");
-                        System.exit(0);
-                    }
-                }
-                else if(answer.equalsIgnoreCase("hint")) {
-                    System.out.println(current.getHint());
-                }
-                else if(answer.equalsIgnoreCase("wear")) {
-                    if(current.getRoomNumber() == 1) {
-                        player1.setWearSuit(true);
-                        System.out.println("The suit is now equiped!");
-                    } else System.out.println("There is nothing to wear");
-                }
-                else if(answer.equalsIgnoreCase("north")) {
-                    goNorth();
-                    checkChangingRoom();
-                }
-                else if(answer.equalsIgnoreCase("east")) {
-                    goEast();
-                    checkChangingRoom();
-                }
-                else if(answer.equalsIgnoreCase("south")) {
-                    goSouth();
-                    checkChangingRoom();
-                }
-                else if(answer.equalsIgnoreCase("west")) {
-                    goWest();
-                    checkChangingRoom();
-                }
-                else if(answer.equalsIgnoreCase("quit")) {
-                    play = false;
+                if (current.getRoomNumber() == 20)
+                {
+                    System.out.println("\nCongratulations! You reached the final room");
+                    System.out.println("\nYou've collected a total of " + player1.getCache() + " Eridium");
                     System.exit(0);
-                } else System.out.println("That is not a valid command!\nPlease try again.");
+                }
+            } else if (answer.equalsIgnoreCase("hint"))
+            {
+                System.out.println(current.getHint());
+            } else if (answer.equalsIgnoreCase("wear"))
+            {
+                if (current.getRoomNumber() == 1)
+                {
+                    player1.setWearSuit(true);
+                    System.out.println("The suit is now equiped!");
+                } else
+                {
+                    System.out.println("There is nothing to wear");
+                }
+            } else if (answer.equalsIgnoreCase("north"))
+            {
+                goNorth();
+                checkChangingRoom();
+            } else if (answer.equalsIgnoreCase("east"))
+            {
+                goEast();
+                checkChangingRoom();
+            } else if (answer.equalsIgnoreCase("south"))
+            {
+                goSouth();
+                checkChangingRoom();
+            } else if (answer.equalsIgnoreCase("west"))
+            {
+                goWest();
+                checkChangingRoom();
+            } else if (answer.equalsIgnoreCase("quit"))
+            {
+                play = false;
+                System.exit(0);
+            } else
+            {
+                System.out.println("That is not a valid command!\nPlease try again.");
+            }
         }
     }
-    
-    
+
 //    public void pickUpAll(){
 //        
 //        
 //        player1
 //    }
-    
-    
-    public void createDungeon() {
+    public void createDungeon()
+    {
 //Opret items og lægi rum:
         VibroBlade v1 = new VibroBlade(12, 4);
-       
-       //Opret monster         
 
-
-
-
-
-
+        //Opret monster         
 //Opretter objekter:
         Room loadingBay = new Room(1, 0, ""
                 + "\nYou feel the artificial gravity, keeping your feet on the ground. Remember, "
@@ -224,88 +224,90 @@ public class Dungeon {
         Room straightBland8 = new Room(1, 20, "\nAfter having climbed these tunnels and having encountered countless mirages, you find yourself lost "
                 + "\nand confused at the top of a chute. All around the chute lies countless small bundles of refined and unrefined Eridium ready "
                 + "\nfor being chucked down the hole. What will you do?", "Hint: Try picking it up!", 7, null);
-        
-        
-        
+
         //Sætter alle referencer
         loadingBay.north = changingRoom;
-        
+
         changingRoom.south = loadingBay;
         changingRoom.north = straightBland1;
         changingRoom.east = ingenuitySmart1;
         changingRoom.west = dumbLoud1;
-        
+
         dumbLoud1.east = changingRoom;
         dumbLoud1.north = dumbLoud2;
-        
+
         dumbLoud2.south = dumbLoud1;
         dumbLoud2.west = dumbLoud3;
-        
+
         dumbLoud3.east = dumbLoud2;
         dumbLoud3.west = dumbLoud4;
-        
+
         dumbLoud4.east = dumbLoud3;
         dumbLoud4.south = dumbLoud5;
-        
+
         dumbLoud5.north = dumbLoud4;
-        
+
         ingenuitySmart1.west = changingRoom;
         ingenuitySmart1.north = ingenuitySmart3;
         ingenuitySmart1.east = ingenuitySmart2;
-        
+
         ingenuitySmart2.west = ingenuitySmart1;
         ingenuitySmart2.north = ingenuitySmart4;
-        
+
         ingenuitySmart3.south = ingenuitySmart1;
         ingenuitySmart3.east = ingenuitySmart4;
-        
+
         ingenuitySmart4.east = ingenuitySmart3;
         ingenuitySmart4.south = ingenuitySmart2;
         ingenuitySmart4.north = ingenuitySmart5;
-        
+
         ingenuitySmart5.south = ingenuitySmart4;
         ingenuitySmart5.east = ingenuitySmart6;
-        
+
         ingenuitySmart6.west = ingenuitySmart5;
-        
+
         straightBland1.south = changingRoom;
         straightBland1.north = straightBland2;
-        
+
         straightBland2.south = straightBland1;
         straightBland2.west = straightBland4;
         straightBland2.north = straightBland3;
-        
+
         straightBland3.south = straightBland2;
         straightBland3.west = straightBland5;
-        
+
         straightBland4.east = straightBland2;
         straightBland4.north = straightBland5;
-        
+
         straightBland5.east = straightBland3;
         straightBland5.south = straightBland4;
         straightBland5.west = straightBland6;
-        
+
         straightBland6.east = straightBland5;
         straightBland6.north = straightBland7;
-        
+
         straightBland7.south = straightBland6;
         straightBland7.north = straightBland8;
-        
+
         straightBland8.south = straightBland7;
-        
+
         //Afslutter med at sætte current til at pege på "starting room":
         current = loadingBay;
     }
-    
-    public void sleepCount() {
-        try {
+
+    public void sleepCount()
+    {
+        try
+        {
             Thread.sleep(500);
-        } catch (InterruptedException ex) {
+        } catch (InterruptedException ex)
+        {
             Thread.currentThread().interrupt();
         }
     }
-    
-    public void getHelp() {
+
+    public void getHelp()
+    {
         System.out.println("Commands:");
         sleepCount();
         System.out.println("\"North\"");
@@ -329,56 +331,77 @@ public class Dungeon {
         System.out.println("\"Wear\"");
         //System.out.println("\"Run\"");
     }
-    
-    public void goNorth() {
-        if(!(current.north == null)) {
-        current = current.north;
-        System.out.println(current.getDescription());
-        } else System.out.println("There is no door in that direction!");
+
+    public void goNorth()
+    {
+        if (!(current.north == null))
+        {
+            current = current.north;
+            System.out.println(current.getDescription());
+        } else
+        {
+            System.out.println("There is no door in that direction!");
+        }
     }
-    
-    public void goSouth() {
-        if(!(current.south == null)) {
-        current = current.south;
-        System.out.println(current.getDescription());
-        } else System.out.println("There is no door in that direction!");
+
+    public void goSouth()
+    {
+        if (!(current.south == null))
+        {
+            current = current.south;
+            System.out.println(current.getDescription());
+        } else
+        {
+            System.out.println("There is no door in that direction!");
+        }
     }
-    
-    public void goEast() {
-        if(!(current.east == null)) {
-        current = current.east;
-        System.out.println(current.getDescription());
-        } else System.out.println("There is no door in that direction!");
+
+    public void goEast()
+    {
+        if (!(current.east == null))
+        {
+            current = current.east;
+            System.out.println(current.getDescription());
+        } else
+        {
+            System.out.println("There is no door in that direction!");
+        }
     }
-    
-    public void goWest() {
-        if(!(current.west == null)) {
-        current = current.west;
-        System.out.println(current.getDescription());
-        } else System.out.println("There is no door in that direction!");
+
+    public void goWest()
+    {
+        if (!(current.west == null))
+        {
+            current = current.west;
+            System.out.println(current.getDescription());
+        } else
+        {
+            System.out.println("There is no door in that direction!");
+        }
     }
-    
-    
+
     //Opretter spilleren
-    public void createPlayer() {
-        
+    public void createPlayer()
+    {
+
         System.out.println("\nWhat is your name?");
-        
+
         player1 = new Player(100);
-       
+
         System.out.println("\nHi " + player1.getName() + "!");
-        
-        
+
     }
-    
-    
-    private void checkChangingRoom() {
-        if(current.getRoomNumber() > 1) {
-            if(!player1.isWearSuit()) {
+
+    private void checkChangingRoom()
+    {
+        if (current.getRoomNumber() > 1)
+        {
+            if (!player1.isWearSuit())
+            {
                 System.out.println("\nYou collected a total of " + player1.getCache() + " Eridium");
                 System.out.println("GAME OVER!");
                 System.exit(0);
-            }   
+            }
         }
     }
 }

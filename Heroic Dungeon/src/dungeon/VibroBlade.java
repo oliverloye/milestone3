@@ -9,17 +9,18 @@ package dungeon;
  *
  * @author Oliver
  */
-public class VibroBlade extends Weapon {
-    
+public class VibroBlade extends Weapon
+{
+
     private final String name = "Vibro Blade";
     private final int damage;
     private final int overheat;
-    
 
-    public VibroBlade(int damage, int overheat) {
+    public VibroBlade(int damage, int overheat)
+    {
         super(damage, overheat);
         this.damage = 25;
         this.overheat = 5;
     }
-    
+
 }

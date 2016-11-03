@@ -13,8 +13,10 @@ public class Combat
     public void fightOneRound(Player p1, Monster monster)
     {
         int dam = p1.getDamage();
-        monster.applyWounds(dam) //Testtesttest
-        
+        monster.applyWounds( dam   )
+                
+               //Endnu en ny testtest!
+                
     }
 
 }

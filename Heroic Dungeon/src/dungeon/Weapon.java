@@ -9,32 +9,36 @@ package dungeon;
  *
  * @author Oliver
  */
-public class Weapon extends Item {
-    
+public class Weapon extends Item
+{
+
     private int damage;
     private int overheat;
 
-    public Weapon(int damage, int overheat) {
+    public Weapon(int damage, int overheat)
+    {
         this.damage = damage;
         this.overheat = overheat;
     }
 
-    public int getDamage() {
+    public int getDamage()
+    {
         return damage;
     }
 
-    public void setDamage(int damage) {
+    public void setDamage(int damage)
+    {
         this.damage = damage;
     }
 
-    public int getOverheat() {
+    public int getOverheat()
+    {
         return overheat;
     }
 
-    public void setOverheat(int overheat) {
+    public void setOverheat(int overheat)
+    {
         this.overheat = overheat;
     }
-    
-    
-    
+
 }

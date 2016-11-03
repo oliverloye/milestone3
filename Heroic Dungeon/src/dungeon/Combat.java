@@ -26,5 +26,5 @@ public class Combat
                 //Olver laver en ny comment!
                 
     }
-
+//noget på 25
 }

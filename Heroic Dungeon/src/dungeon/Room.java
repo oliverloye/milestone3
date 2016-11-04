@@ -11,14 +11,14 @@ public class Room
     private final String description;
     private String hint;
     private int numberOfEridium;
-    private ArrayList<Item> treasure;
+    private final ArrayList<Item> roomTreasure = new ArrayList<Item>();
 
     public Room north;
     public Room east;
     public Room south;
     public Room west;
 
-    public Room(int door, int roomNumber, String description, String hint, int numberOfEridium, Item item)
+    public Room(int door, int roomNumber, String description, String hint, int numberOfEridium)
     {
         this.numberOfDoors = door;
         this.roomNumber = roomNumber;
@@ -29,19 +29,23 @@ public class Room
         south = null;
         west = null;
         east = null;
-        treasure = new ArrayList<>();
-        treasure.add(item);
     }
 
+    public ArrayList<Item> getRoomTreasure() {
+        return roomTreasure;
+    }
+    
+    //Vi skal have en metode til at clear vores item liste  "clearRoomTreasure"
+    public void clearRoomTreasure() {
+        roomTreasure.clear();
+    }
+    
     public void add(Item item)
     {
-        treasure.add(item);
+        roomTreasure.add(item);
     }
 
-    public ArrayList<Item> getAllItems()
-    {
-        return treasure;
-    }
+    
 
     public int getRoomNumber()
     {

@@ -7,6 +7,14 @@ public class Dungeon
 {
     private Player player1;
     private Room current;
+    private Combat combat;
+
+    public Dungeon() {
+        
+        combat = new Combat();
+    }
+    
+    
 
     public void welcome()
     {
@@ -24,48 +32,48 @@ public class Dungeon
     public void gameLoop()
     {
         //TEST----------------------------------------------
-        sleepCount();
-        System.out.println("\n----------LOADING-----------");
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.println(".");
-        System.out.println("----------UPLOADING-----------");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.print(".");
-        sleepCount();
-        System.out.println(".");
-        sleepCount();
-        System.out.println("----------STARTING-----------");
-        sleepCount();
-        System.out.println("3");
-        sleepCount();
-        System.out.println("2");
-        sleepCount();
-        System.out.println("1");
-        sleepCount();
-        System.out.println("0");
-        System.out.println("\nHere we go!");
-        sleepCount();
+//        sleepCount();
+//        System.out.println("\n----------LOADING-----------");
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.println(".");
+//        System.out.println("----------UPLOADING-----------");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.print(".");
+//        sleepCount();
+//        System.out.println(".");
+//        sleepCount();
+//        System.out.println("----------STARTING-----------");
+//        sleepCount();
+//        System.out.println("3");
+//        sleepCount();
+//        System.out.println("2");
+//        sleepCount();
+//        System.out.println("1");
+//        sleepCount();
+//        System.out.println("0");
+//        System.out.println("\nHere we go!");
+//        sleepCount();
 
         //TEST----------------------------------------------
         boolean play = true;
@@ -74,7 +82,7 @@ public class Dungeon
 
         Scanner scan = new Scanner(System.in);
 
-        while (play)
+        while ( play )
         {
 
             answer = scan.nextLine();
@@ -85,21 +93,22 @@ public class Dungeon
                 System.out.println("\nTotal of Eridium: " + player1.getCache());
             } else if (answer.equalsIgnoreCase("loot")) {
                 
-                if(current.getNumberOfEridium() == 0 && current.getRoomTreasure().isEmpty()) {
+                if(current.getNumberOfEridium() == 0 || current.getNumberOfEridium() < 0 && current.getRoomTreasure().isEmpty()) {
                     System.out.println("There is nothing to loot!");
                 } else if(!(current.getRoomTreasure().isEmpty())) {
                         ArrayList<Item> allItems = current.getRoomTreasure();
                         player1.addAllToBag(allItems); //Lægger alle items fra arraylisten over i spilleres bag
                         System.out.println("You've just looted " + current.getRoomTreasure().toString());
-                } else if(current.getNumberOfEridium() > 0) {
-                    //current.setNumberOfEridium(current.getNumberOfEridium()); //slettes???
+                        current.clearRoomTreasure();
+                }
+                if(current.getNumberOfEridium() > 0) {
+                    
                     System.out.println("You've just looted " + current.getNumberOfEridium() + " chunk(s) of Eridium!");
 
                     player1.addToCache(current.getNumberOfEridium());
                     current.setNumberOfEridium(0);
-                } else {
-                    System.out.println("There is nothing to loot!");
                 }
+                
                 if (current.getRoomNumber() == 20) {
                     System.out.println("\nCongratulations! You reached the final room");
                     System.out.println("\nYou've collected a total of " + player1.getCache() + " Eridium");
@@ -117,32 +126,47 @@ public class Dungeon
             } else if (answer.equalsIgnoreCase("north")) {
                 goNorth();
                 checkChangingRoom();
+                checkMonster();
+                System.out.println(current.getDescription());
             } else if (answer.equalsIgnoreCase("east")) {
                 goEast();
                 checkChangingRoom();
+                checkMonster();
+                System.out.println(current.getDescription());
             } else if (answer.equalsIgnoreCase("south")) {
                 goSouth();
                 checkChangingRoom();
+                checkMonster();
+                System.out.println(current.getDescription());
             } else if (answer.equalsIgnoreCase("west")) {
                 goWest();
                 checkChangingRoom();
+                checkMonster();
+                System.out.println(current.getDescription());
             } else if (answer.equalsIgnoreCase("quit")) {
                 play = false;
                 System.exit(0);
             } else if (answer.equalsIgnoreCase("bag")) {
                 System.out.println("Inventory: \n" + player1.getBag());
-            } else {
+            }
+            else {
                 System.out.println("That is not a valid command!\nPlease try again.");
             }
         }
     }
 
-    public void createDungeon()
-    {
-//Opret items og lægi rum:
+    public void createDungeon() {       
+        //Oprette alle monster :
+        Monster m1 = new Monster(15,"this is a description");
+        Monster m2 = new Monster(20, "this is a description");
         
-        //Opret monster         
+        
+        
+        
 //Opretter objekter:
+        //TEST ROOM BELOW
+        Room testRoom = new Room(1, 21, "This is a test room!", "TEST", -234);
+        //TEST ROOM ABOVE
         Room loadingBay = new Room(1, 0, ""
                 + "\nYou feel the artificial gravity, keeping your feet on the ground. Remember, "
                 + "\nyou can always inquire your Automated industrially Recognized Minicomputer, AiRM for short, "
@@ -158,7 +182,9 @@ public class Dungeon
                 + "\nlooking purposes equipped with a lamp to light up the dark caverns on the side. From where you stand, you "
                 + "\ncan now see four doors including the door back and three doors each with a sign over it. To the West is a "
                 + "\ndoor labelled “Excavated”, the Northernmost door is labelled “Main Shaft” while the last door to the East is "
-                + "\nlabelled “Dormitory”. What will you do?", "Mabye it's a good idea to \"wear\" that suit..?", 0);
+                + "\nlabelled “Dormitory”. What will you do?", "Mabye it's a good idea to \"wear\" that suit..?",10);
+        changingRoom.add(new LaserGun());
+        changingRoom.setMonster(m2);
         Room dumbLoud1 = new Room(2, 2, "\nYou've entered a long hallway, with rocky sides, and stallecmites shooting up from the ground everywhere. "
                 + "\nWhat will you do?", "Hint: Try moving on", 0);
         Room dumbLoud2 = new Room(2, 3, "\nYou continue into the dark of the mines, taking a hard right, still, this barren cave-system, gives you the creeps"
@@ -203,6 +229,12 @@ public class Dungeon
                 + "\nfor being chucked down the hole. What will you do?", "Hint: Try picking it up!", 7);
 
         //Sætter alle referencer
+        
+        //Test below
+        testRoom.north = loadingBay;
+        loadingBay.south = testRoom;
+        //Test above
+        
         loadingBay.north = changingRoom;
 
         changingRoom.south = loadingBay;
@@ -303,56 +335,44 @@ public class Dungeon
         sleepCount();
         //System.out.println("\"Move\"");
         //System.out.println("\"Use\"");
-        //System.out.println("\"Loot\"");
+        System.out.println("\"Loot\"");
         //System.out.println("\"Equip\"");
         System.out.println("\"Wear\"");
-        //System.out.println("\"Run\"");
+        System.out.println("\"Attack\"");
     }
 
-    public void goNorth()
-    {
-        if (!(current.north == null))
-        {
+    public void goNorth() {
+        if (!(current.north == null)) {
             current = current.north;
-            System.out.println(current.getDescription());
-        } else
-        {
+            
+        } else {
             System.out.println("There is no door in that direction!");
         }
     }
 
-    public void goSouth()
-    {
-        if (!(current.south == null))
-        {
+    public void goSouth() {
+        if (!(current.south == null)) {
             current = current.south;
             System.out.println(current.getDescription());
-        } else
-        {
+        } else {
             System.out.println("There is no door in that direction!");
         }
     }
 
-    public void goEast()
-    {
-        if (!(current.east == null))
-        {
+    public void goEast() {
+        if (!(current.east == null)) {
             current = current.east;
             System.out.println(current.getDescription());
-        } else
-        {
+        } else {
             System.out.println("There is no door in that direction!");
         }
     }
 
-    public void goWest()
-    {
-        if (!(current.west == null))
-        {
+    public void goWest() {
+        if (!(current.west == null)) {
             current = current.west;
             System.out.println(current.getDescription());
-        } else
-        {
+        } else {
             System.out.println("There is no door in that direction!");
         }
     }
@@ -363,7 +383,7 @@ public class Dungeon
         
         System.out.println("\nWhat is your name?");
 
-        player1 = new Player(100);
+        player1 = new Player();
         player1.addSingleToBag(new LaserGun());
         player1.addSingleToBag(new HlpenMin());
         player1.addSingleToBag(new HlpenMin());
@@ -383,4 +403,28 @@ public class Dungeon
             }
         }
     }
+    
+    private void checkMonster() {
+        
+        String combatAnswer = "";
+        Scanner scan = new Scanner(System.in);
+        
+        
+        if(current.getRoomMonster() != null) {
+            System.out.println(current.getRoomMonster().getMonsterDescriptoin());
+            while(current.getRoomMonster().getMonsterHp() > 0) {
+                System.out.println("What will you do?");
+                combatAnswer = scan.nextLine();
+                if (combatAnswer.equalsIgnoreCase("attack")) {
+                combat.fightOneRound(player1, current.getRoomMonster() );
+                } else if (combatAnswer.equalsIgnoreCase("run")) {
+                    System.out.println("You avoid the monster but the monster hits you once and you loose 10 hp!");
+                    player1.setHp(player1.getHp()-10);
+                    System.out.println("Player hp: " + player1.getHp());
+                    break;                    
+                } else System.out.println("That is not an option!");
+            } current.clearRoomMonster();
+        }
+    }
+    
 }

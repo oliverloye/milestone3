@@ -15,7 +15,7 @@ public class Dungeon
     }
     
     
-
+    //Intro til spillet før det begynder.
     public void welcome()
     {
         System.out.println("\nMoriMoriTek.Inc is a hyper company of the year 22XX of the international space calendar, "
@@ -29,6 +29,7 @@ public class Dungeon
                 + "\nvery clear to our young smuggler.");
     }
 
+    //Game-Loop -- selve spillet der kører og modtager commandoer fra spilleren
     public void gameLoop()
     {
         //TEST----------------------------------------------
@@ -153,6 +154,7 @@ public class Dungeon
         }
     }
 
+    //Opretter vores dungeon
     public void createDungeon() {       
         //Oprette alle monster :
         Monster m1 = new Moonlizards();
@@ -162,7 +164,7 @@ public class Dungeon
         
         
         
-//Opretter objekter:
+        //Opretter objekter:
         //TEST ROOM BELOW
         Room testRoom = new Room(1, 21, "This is a test room!", "TEST", -234);
         //TEST ROOM ABOVE
@@ -229,6 +231,7 @@ public class Dungeon
                 + "\nand confused at the top of a chute. All around the chute lies countless small bundles of refined and unrefined Eridium ready "
                 + "\nfor being chucked down the hole. What will you do?", "Hint: Try picking it up!", 7);
 
+        
         //Sætter alle referencer
         
         //Test below
@@ -305,6 +308,7 @@ public class Dungeon
         current = loadingBay;
     }
 
+    //Metode som bliver brugt til at sætte pause på outputs.
     public void sleepCount()
     {
         try
@@ -315,7 +319,8 @@ public class Dungeon
             Thread.currentThread().interrupt();
         }
     }
-
+    
+    //Printer mulige commandoer imens Game-Loop kører.
     public void getHelp() {
         System.out.println("Commands:");
         sleepCount();
@@ -341,6 +346,7 @@ public class Dungeon
         System.out.println("\"Wear\"");
     }
     
+    //Printer mulige commandoer imens Combat-Loop kører.
     public void getCombatHelp() {
         System.out.println("\"Attack\"");
         sleepCount();
@@ -351,6 +357,7 @@ public class Dungeon
         
     }
 
+    //flytter spilleren (current) mod nord.
     public void goNorth() {
         if (!(current.north == null)) {
             current = current.north;
@@ -359,6 +366,7 @@ public class Dungeon
         }
     }
 
+    //flytter spilleren (current) mod syd.
     public void goSouth() {
         if (!(current.south == null)) {
             current = current.south;
@@ -366,7 +374,8 @@ public class Dungeon
             System.out.println("There is no door in that direction!");
         }
     }
-
+    
+    //flytter spilleren (current) mod øst.
     public void goEast() {
         if (!(current.east == null)) {
             current = current.east;
@@ -374,7 +383,8 @@ public class Dungeon
             System.out.println("There is no door in that direction!");
         }
     }
-
+    
+    //flytter spilleren (current) mod vest.
     public void goWest() {
         if (!(current.west == null)) {
             current = current.west;
@@ -383,7 +393,7 @@ public class Dungeon
         }
     }
 
-    //Opretter spilleren
+    //Opretter spilleren og prompt'er for et navn.
     public void createPlayer()
     {
         
@@ -396,7 +406,8 @@ public class Dungeon
         System.out.println("\nHi " + player1.getName() + "!");
 
     }
-
+    
+    //Tjekker om man har "rum-dragt" (commando: "wear") på efter at have været i changingRoom.
     private void checkChangingRoom()
     {
         if (current.getRoomNumber() > 1)
@@ -409,7 +420,7 @@ public class Dungeon
             }
         }
     }
-    
+    //Tjekker om der er et monster i rummet og starter evt. Combat-Loop
     private void checkMonster() {
         
         String combatAnswer = "";
@@ -423,12 +434,12 @@ public class Dungeon
                 combatAnswer = scan.nextLine();
                 if (combatAnswer.equalsIgnoreCase("attack")) {
                 combat.fightOneRound(player1, current.getRoomMonster() );
-                player1.checkForDead();
-                } else if (combatAnswer.equalsIgnoreCase("run")) {
+                player1.checkIfDead();
+                } else if (combatAnswer.equalsIgnoreCase("run")) {  //Hvis du løber fra monsteret, tager du 10 dmg.
                     System.out.println("You avoid the monster but the monster hits you once and you loose 10 hp!");
                     player1.setHp(player1.getHp()-10);
                     System.out.println("Player hp: " + player1.getHp());
-                    player1.checkForDead();
+                    player1.checkIfDead(); // en metode som tjekker om spillere har > 0 hp (er i live).
                     break;                    
                 }
                 else if (combatAnswer.equalsIgnoreCase("help")) {
@@ -442,7 +453,9 @@ public class Dungeon
 //                } 
                 else System.out.println("That is not an option!");
             } 
-            if(current.getRoomMonster().getMonsterHp() <= 0) {
+            if(current.getRoomMonster().getMonsterHp() <= 0) {  //Tjekker om monsteret er afgået ved døden og i så fald "belønner" spillere med 5 gold (Eridium) 
+                player1.setCache((player1.getCache() + 5));
+                System.out.println("You loot 5 chuncks of Eridium from the monster");
                 current.clearRoomMonster();
             }
         }

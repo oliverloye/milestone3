@@ -15,7 +15,7 @@ public class Weapon extends Item
     private int damage;
     private int overheat;
 
-    public Weapon(int damage, int overheat)
+    public Weapon()
     {
         this.damage = damage;
         this.overheat = overheat;

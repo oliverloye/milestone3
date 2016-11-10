@@ -11,7 +11,9 @@ public class Room
     private final String description;
     private String hint;
     private int numberOfEridium;
+    private Monster monster;
     private final ArrayList<Item> roomTreasure = new ArrayList<Item>();
+//    private final ArrayList<Item> roomMonsters = new ArrayList<Item>();
 
     public Room north;
     public Room east;
@@ -38,6 +40,10 @@ public class Room
     //Vi skal have en metode til at clear vores item liste  "clearRoomTreasure"
     public void clearRoomTreasure() {
         roomTreasure.clear();
+    }
+    
+    public void clearRoomMonster() {
+        monster = null;
     }
     
     public void add(Item item)
@@ -90,6 +96,14 @@ public class Room
     public void setNumberOfEridium(int numberOfEridium)
     {
         this.numberOfEridium = numberOfEridium;
+    }
+
+    public Monster getRoomMonster() {
+        return monster;
+    }
+
+    public void setMonster(Monster monster) {
+        this.monster = monster;
     }
 
     @Override

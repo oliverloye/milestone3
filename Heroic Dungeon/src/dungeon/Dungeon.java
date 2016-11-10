@@ -1,7 +1,16 @@
 package dungeon;
 
+import java.awt.Component;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Dungeon
 {
@@ -23,58 +32,94 @@ public class Dungeon
                 + "\nSince then, they've branched out, started mining for Eridium on rogue asteroids throughout their galaxy. "
                 + "\nEridium is a dangerous substance, highly toxic to most sentient life, since it's radiation blocks brain "
                 + "\nimpulses and if not wearing the right protective gear one will be rendered braindead in a matter of minutes."
-                + "\nlanded your small smugglers ship on this abandoned asteroid. “224B6” was the name you saw on the giant MoriMoriTek  "
-                + "\nthe docking bay. Eridium is as dangerous as it is valuable which why you've landed here—to make yourself the "
-                + "\nsign outside richest single person in the known universe. The reason why the asteroid was abandoned will soon become "
+                + "\nYou've landed your small smugglers ship on this abandoned asteroid. “224B6” was the name you saw on the giant MoriMoriTek  "
+                + "\nsign, outside the docking bay. Eridium is as dangerous as it is valuable, that's why you've landed here, to make yourself the "
+                + "\nrichest single person, in the known universe. The reason why the asteroid was abandoned will though soon become "
                 + "\nvery clear to our young smuggler.");
     }
 
+     private static void saveGameDataToFile() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void saveGameDataToFile(File file) {   
+
+    try {   
+        FileOutputStream fileStream = new FileOutputStream(file);   
+        ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);  
+
+        
+        objectStream.close();   
+        fileStream.close();   
+        Component frame = null;
+
+        JOptionPane.showConfirmDialog(frame, 
+            "Save game state successfully.", 
+            "Dungeon game",   
+            JOptionPane.DEFAULT_OPTION);   
+    } catch (Exception e) {   
+        Component frame = null;
+        JOptionPane.showConfirmDialog(frame, 
+            e.toString() + "\nFail to save game state.",   
+            "Dungeon game", 
+            JOptionPane.DEFAULT_OPTION);   
+    }   
+}  
+ public void loadGameDataFromFile(File file) throws ClassNotFoundException, FileNotFoundException, IOException{   
+ 
+
+    FileInputStream fileStream = new FileInputStream(file);   
+    ObjectInputStream objectStream = new ObjectInputStream(fileStream);   
+
+ }
+    
+    
     //Game-Loop -- selve spillet der kører og modtager commandoer fra spilleren
     public void gameLoop()
     {
         //TEST----------------------------------------------
-//        sleepCount();
-//        System.out.println("\n----------LOADING-----------");
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.println(".");
-//        System.out.println("----------UPLOADING-----------");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.print(".");
-//        sleepCount();
-//        System.out.println(".");
-//        sleepCount();
-//        System.out.println("----------STARTING-----------");
-//        sleepCount();
-//        System.out.println("3");
-//        sleepCount();
-//        System.out.println("2");
-//        sleepCount();
-//        System.out.println("1");
-//        sleepCount();
-//        System.out.println("0");
-//        System.out.println("\nHere we go!");
-//        sleepCount();
+        sleepCount();
+        System.out.println("\n----------LOADING-----------");
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.println(".");
+        System.out.println("----------UPLOADING-----------");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.print(".");
+        sleepCount();
+        System.out.println(".");
+        sleepCount();
+        System.out.println("----------STARTING-----------");
+        sleepCount();
+        System.out.println("3");
+        sleepCount();
+        System.out.println("2");
+        sleepCount();
+        System.out.println("1");
+        sleepCount();
+        System.out.println("0");
+        System.out.println("\nHere we go!");
+        sleepCount();
 
         //TEST----------------------------------------------
         boolean play = true;
@@ -170,20 +215,21 @@ public class Dungeon
         //TEST ROOM ABOVE
         Room loadingBay = new Room(1, 0, ""
                 + "\nYou feel the artificial gravity, keeping your feet on the ground. Remember, "
-                + "\nyou can always inquire your Automated industrially Recognized Minicomputer, AiRM for short, "
-                + "\nfor Hint in a sticky situation. "
-                + "\nIf you get freaked out, or bored, you can always Quit while you're ahead and flee the mines,"
-                + "\nbut in the hurry you will drop your Cache of Eridium. In this hangar there is absolutely nothing "
-                + "\nto Loot so you decide to press on. There is only one door in the vast hollowed out loading bay, and "
-                + "\nit is found to the North. You must now decide what to do next!", "Hint: Try moving into the next room.", 0);
+                + "\nyou can always inquire your Automated industrially Recognized Minicomputero or AiRM for short, "
+                + "\nfor \"Hint\" in a sticky situation. "
+                + "\nIf you get freaked out, or bored, you can always \"Quit\" while you're ahead and flee the mines,"
+                + "\nbut in the hurry you will drop your \"Cache\" of Eridium. In this hangar there is absolutely nothing "
+                + "\nto \"Loot\" so you decide to press on. There is only one door in the vast hollowed out loadingbay, and "
+                + "\nit's found to the \"North\". You must now decide what to do next!", "Hint: Try moving into the next room.", 0);
         loadingBay.add(new HlpenMin());
-        Room changingRoom = new Room(4, 1, "\nThe light flickers are on, you are standing in a changing room surrounded by what "
+        Room changingRoom = new Room(4, 1, ""
+                +"\nThe light flickers are on, you are standing in a changing room surrounded by what "
                 + "\nyou can best describe as hazmat suits, they are big and white and look very heavy, but manageable to carry "
                 + "\nand to wear. This helmet is way bigger than your head and it has a large square window in the front for "
-                + "\nlooking purposes equipped with a lamp to light up the dark caverns on the side. From where you stand, you "
-                + "\ncan now see four doors including the door back and three doors each with a sign over it. To the West is a "
-                + "\ndoor labelled “Excavated”, the Northernmost door is labelled “Main Shaft” while the last door to the East is "
-                + "\nlabelled “Dormitory”. What will you do?", "Mabye it's a good idea to \"wear\" that suit..?",10);
+                + "\nlooking purposes equipped with a lamp on the side, to light up the dark caverns. From where you stand, you "
+                + "\ncan now see four doors including the door back, and three doors each with a sign over it. To the \"West\" is a "
+                + "\ndoor labelled 'Excavated', the Northernmost door is labelled 'Main Shaft' while the last door to the \"East\" is "
+                + "\nlabelled 'Dormitory'. What will you do?", "Mabye it's a good idea to \"wear\" that suit..?",10);
         changingRoom.add(new LaserGun());
         Room dumbLoud1 = new Room(2, 2, "\nYou've entered a long hallway, with rocky sides, and stallecmites shooting up from the ground everywhere. "
                 + "\nWhat will you do?", "Hint: Try moving on", 0);
@@ -397,13 +443,15 @@ public class Dungeon
     public void createPlayer()
     {
         
-        System.out.println("\nWhat is your name?");
+        System.out.println("\nWhat is your name, young smuggler?");
 
         player1 = new Player();
         player1.addSingleToBag(new LaserGun());
         player1.addSingleToBag(new HlpenMin());
         player1.addSingleToBag(new HlpenMin());
-        System.out.println("\nHi " + player1.getName() + "!");
+        System.out.println("\nHi " + player1.getName() + "!\n");
+        System.out.println("Please stand by...");
+        sleepCount();
 
     }
     

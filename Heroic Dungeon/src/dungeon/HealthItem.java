@@ -14,7 +14,7 @@ public class HealthItem extends Item
 
     private int restoreHp;
 
-    public HealthItem(int restoreHp)
+    public HealthItem()
     {
         this.restoreHp = restoreHp;
     }

@@ -9,16 +9,19 @@ package dungeon;
  *
  * @author Oliver
  */
-public class HippenMax extends HealthItem
+public class HlpenMid extends HealthItem
 {
 
-    private final String name = "Hippen Max";
+    private final String name = "Healthpen";
     private final int restoreHp;
 
-    public HippenMax(int restoreHp)
+    public HlpenMid()
     {
-        super(restoreHp);
-        this.restoreHp = 50;
+        this.restoreHp = 20;
     }
-
+    
+    @Override
+    public String toString() {
+        return name;
+    }
 }

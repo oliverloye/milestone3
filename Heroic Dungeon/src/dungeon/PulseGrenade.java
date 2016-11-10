@@ -16,9 +16,8 @@ public class PulseGrenade extends Weapon
     private final int damage;
     private final int overheat;
 
-    public PulseGrenade(int damage, int overheat)
+    public PulseGrenade()
     {
-        super(damage, overheat);
         this.damage = 100;
         this.overheat = 10;
     }

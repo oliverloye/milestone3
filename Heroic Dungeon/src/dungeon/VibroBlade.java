@@ -16,11 +16,10 @@ public class VibroBlade extends Weapon
     private final int damage;
     private final int overheat;
 
-    public VibroBlade(int damage, int overheat)
+    public VibroBlade()
     {
-        super(damage, overheat);
         this.damage = 25;
-        this.overheat = 5;
+        this.overheat = 0;
     }
 
 }

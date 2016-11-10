@@ -1,5 +1,7 @@
 package dungeon;
 
+import java.io.File;
+
 public class HeroicDungeon
 {
 
@@ -7,6 +9,10 @@ public class HeroicDungeon
     {
 
         Dungeon dungeon = new Dungeon();
+        
+        File file = null;
+        dungeon.saveGameDataToFile(file);
+        
         dungeon.welcome();
         dungeon.createDungeon();
         dungeon.createPlayer();

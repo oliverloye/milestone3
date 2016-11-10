@@ -27,13 +27,9 @@ public class Player {
 
     }
 
-    public int attack() {
-        return playerDamage = number.nextInt(5) + 1;
-    }
-
     public int criticalHit() {
         
-        playerDamage = number.nextInt(5) + 1;
+        playerDamage = (number.nextInt(5) + 1) + 50;
         
         criticalHit = number.nextInt(5) + 1;
         if (criticalHit == 6) {
@@ -42,7 +38,13 @@ public class Player {
             return playerDamage; //attack er som oprindeligt.
         }
     }
-
+    
+    public void checkIfDead() {
+        if(hp <= 0) {
+            System.out.println("GAME OVER!");
+            System.exit(0);
+        }
+    }
     
     public void checkForCrit() {
         if(criticalHit == 6) {

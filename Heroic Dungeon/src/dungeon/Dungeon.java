@@ -86,14 +86,12 @@ public class Dungeon
         {
 
             answer = scan.nextLine();
-            if (answer.equalsIgnoreCase("help"))
-            {
+            if (answer.equalsIgnoreCase("help")) {
                 getHelp();
             } else if (answer.equalsIgnoreCase("check cache")) {
                 System.out.println("\nTotal of Eridium: " + player1.getCache());
             } else if (answer.equalsIgnoreCase("loot")) {
-                
-                if(current.getNumberOfEridium() == 0 || current.getNumberOfEridium() < 0 && current.getRoomTreasure().isEmpty()) {
+                if((current.getNumberOfEridium() == 0 || current.getNumberOfEridium() < 0) && current.getRoomTreasure().isEmpty()) {
                     System.out.println("There is nothing to loot!");
                 } else if(!(current.getRoomTreasure().isEmpty())) {
                         ArrayList<Item> allItems = current.getRoomTreasure();
@@ -157,8 +155,9 @@ public class Dungeon
 
     public void createDungeon() {       
         //Oprette alle monster :
-        Monster m1 = new Monster(15,"this is a description");
-        Monster m2 = new Monster(20, "this is a description");
+        Monster m1 = new Moonlizards();
+        Monster j1 = new Jickridon();
+        Monster d1 = new Drakodrone();
         
         
         
@@ -184,7 +183,6 @@ public class Dungeon
                 + "\ndoor labelled “Excavated”, the Northernmost door is labelled “Main Shaft” while the last door to the East is "
                 + "\nlabelled “Dormitory”. What will you do?", "Mabye it's a good idea to \"wear\" that suit..?",10);
         changingRoom.add(new LaserGun());
-        changingRoom.setMonster(m2);
         Room dumbLoud1 = new Room(2, 2, "\nYou've entered a long hallway, with rocky sides, and stallecmites shooting up from the ground everywhere. "
                 + "\nWhat will you do?", "Hint: Try moving on", 0);
         Room dumbLoud2 = new Room(2, 3, "\nYou continue into the dark of the mines, taking a hard right, still, this barren cave-system, gives you the creeps"
@@ -193,6 +191,7 @@ public class Dungeon
                 + "\nin your line of vision and you get startled, standing completely still, but darting your head around to catch another glimpse of the creature. "
                 + "\nNothing shows up, you stand there, paranoid, thinking that it might show up again, but, nevertheless, you can't hear, see or feel anything in this"
                 + "\ncave section. What will you do?", "Hint: Try moving on", 5);
+        dumbLoud3.setMonster(m1);
         Room dumbLoud4 = new Room(2, 5, "\nA litte further down the tunnel, is a faint light, but what is casting it?", "Hint: What could that light be?", 0);
         Room dumbLoud5 = new Room(1, 6, "\nA dead end, but a dead end, filled with small Eridium chunks!", "Hint: Well, pick them up!", 8);
         dumbLoud5.add(new VibroBlade());
@@ -222,8 +221,10 @@ public class Dungeon
         Room straightBland3 = new Room(2, 15, "You ignore the man and move straight, ", "Hint: You sure that man wasn't enticing? He wasn't wearing a suit...", 2);
         Room straightBland4 = new Room(2, 16, "You get around the corner, but nothing is there...", "Hint: Look for the man", 0);
         Room straightBland5 = new Room(3, 17, "You spot the man again, he is standing straight, staring at you", "Hint: Is he even human? Am I going crazy?", 1);
+        straightBland5.setMonster(j1);
         Room straightBland6 = new Room(2, 18, "You move towards him, he.. flickers? you now realize he was a Hologram, all along.", "Hint: Such a dissapointment", 3);
         Room straightBland7 = new Room(2, 19, "You move further up a hillclimb inside the cavern, noticing a glow, at the end of the tunnel", "Hint: Is this what i think it is?", 0);
+        straightBland7.setMonster(d1);
         Room straightBland8 = new Room(1, 20, "\nAfter having climbed these tunnels and having encountered countless mirages, you find yourself lost "
                 + "\nand confused at the top of a chute. All around the chute lies countless small bundles of refined and unrefined Eridium ready "
                 + "\nfor being chucked down the hole. What will you do?", "Hint: Try picking it up!", 7);
@@ -315,8 +316,7 @@ public class Dungeon
         }
     }
 
-    public void getHelp()
-    {
+    public void getHelp() {
         System.out.println("Commands:");
         sleepCount();
         System.out.println("\"North\"");
@@ -336,15 +336,24 @@ public class Dungeon
         //System.out.println("\"Move\"");
         //System.out.println("\"Use\"");
         System.out.println("\"Loot\"");
+        sleepCount();
         //System.out.println("\"Equip\"");
         System.out.println("\"Wear\"");
+    }
+    
+    public void getCombatHelp() {
         System.out.println("\"Attack\"");
+        sleepCount();
+        System.out.println("\"Run\"");
+        sleepCount();
+        System.out.println("\"Quit\"");
+        
+        
     }
 
     public void goNorth() {
         if (!(current.north == null)) {
             current = current.north;
-            
         } else {
             System.out.println("There is no door in that direction!");
         }
@@ -353,7 +362,6 @@ public class Dungeon
     public void goSouth() {
         if (!(current.south == null)) {
             current = current.south;
-            System.out.println(current.getDescription());
         } else {
             System.out.println("There is no door in that direction!");
         }
@@ -362,7 +370,6 @@ public class Dungeon
     public void goEast() {
         if (!(current.east == null)) {
             current = current.east;
-            System.out.println(current.getDescription());
         } else {
             System.out.println("There is no door in that direction!");
         }
@@ -371,7 +378,6 @@ public class Dungeon
     public void goWest() {
         if (!(current.west == null)) {
             current = current.west;
-            System.out.println(current.getDescription());
         } else {
             System.out.println("There is no door in that direction!");
         }
@@ -411,19 +417,34 @@ public class Dungeon
         
         
         if(current.getRoomMonster() != null) {
-            System.out.println(current.getRoomMonster().getMonsterDescriptoin());
+            System.out.println(current.getRoomMonster().getMonsterDescription());
             while(current.getRoomMonster().getMonsterHp() > 0) {
                 System.out.println("What will you do?");
                 combatAnswer = scan.nextLine();
                 if (combatAnswer.equalsIgnoreCase("attack")) {
                 combat.fightOneRound(player1, current.getRoomMonster() );
+                player1.checkForDead();
                 } else if (combatAnswer.equalsIgnoreCase("run")) {
                     System.out.println("You avoid the monster but the monster hits you once and you loose 10 hp!");
                     player1.setHp(player1.getHp()-10);
                     System.out.println("Player hp: " + player1.getHp());
+                    player1.checkForDead();
                     break;                    
-                } else System.out.println("That is not an option!");
-            } current.clearRoomMonster();
+                }
+                else if (combatAnswer.equalsIgnoreCase("help")) {
+                    getCombatHelp();
+                }
+//                else if (combatAnswer.equalsIgnoreCase("bag")) {
+//                    System.out.println("Inventory: \n" + player1.getBag());
+//                    if((!player1.getBag().isEmpty()) && combatAnswer.equalsIgnoreCase("use")) {
+//                        //player1.
+//                    }
+//                } 
+                else System.out.println("That is not an option!");
+            } 
+            if(current.getRoomMonster().getMonsterHp() <= 0) {
+                current.clearRoomMonster();
+            }
         }
     }
     
